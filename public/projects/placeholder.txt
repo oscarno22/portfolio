@@ -1,0 +1,5 @@
+This directory contains project images. Please replace the following images with your actual project screenshots:
+
+1. ecommerce.jpg
+2. task-manager.jpg
+3. analytics.jpg 
