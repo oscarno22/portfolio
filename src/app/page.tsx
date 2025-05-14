@@ -230,8 +230,8 @@ export default function Home() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 href="/docs/resume-oscarnolen.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
+            target="_blank"
+            rel="noopener noreferrer"
                 className="px-8 py-3 bg-white text-primary-600 border-2 border-primary-600 rounded-lg hover:bg-primary-50 transition-colors transform-gpu"
               >
                 Download Resume
@@ -544,8 +544,8 @@ export default function Home() {
               <motion.a
                 variants={itemVariants}
                 href="https://www.linkedin.com/in/oscar-nolen-846269153"
-                target="_blank"
-                rel="noopener noreferrer"
+          target="_blank"
+          rel="noopener noreferrer"
                 className="flex items-center gap-3 text-lg text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors w-full bg-white dark:bg-slate-900 p-4 rounded-lg shadow-md hover:shadow-lg border border-gray-100 dark:border-gray-700"
               >
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -566,7 +566,7 @@ export default function Home() {
               </motion.div>
             </motion.div>
           </motion.div>
-        </div>
+    </div>
       </section>
 
       {/* Back to Top Button */}
