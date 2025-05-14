@@ -9,6 +9,7 @@ interface ProjectCardProps {
   description: string
   technologies: string[]
   imageUrl: string
+  company: string
   liveUrl?: string
   githubUrl?: string
 }
@@ -18,6 +19,7 @@ export default function ProjectCard({
   description,
   technologies,
   imageUrl,
+  company,
   liveUrl,
   githubUrl
 }: ProjectCardProps) {
@@ -38,9 +40,14 @@ export default function ProjectCard({
         />
       </div>
       <div className="p-6">
-        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-          {title}
-        </h3>
+        <div className="mb-2">
+          <p className="text-sm font-medium text-primary-600 dark:text-primary-400 mb-1">
+            {company}
+          </p>
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+            {title}
+          </h3>
+        </div>
         <p className="text-gray-700 dark:text-gray-300 mb-4">
           {description}
         </p>
@@ -48,7 +55,7 @@ export default function ProjectCard({
           {technologies.map((tech) => (
             <span
               key={tech}
-              className="px-3 py-1 bg-primary-50 dark:bg-slate-800 text-primary-600 dark:text-primary-400 rounded-full text-sm"
+              className="px-3 py-1 bg-primary-50 dark:bg-slate-800 text-primary-600 dark:text-primary-400 rounded-full text-sm font-medium"
             >
               {tech}
             </span>
