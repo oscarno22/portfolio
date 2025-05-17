@@ -53,7 +53,7 @@ export default function ChatBot() {
       {/* Chat Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-8 left-8 bg-primary-600 text-white p-3 rounded-full shadow-lg z-50"
+        className="fixed bottom-8 left-8 bg-primary-600 text-white p-3 rounded-full shadow-lg z-50 md:left-8 left-4"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
@@ -74,7 +74,7 @@ export default function ChatBot() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="fixed bottom-24 left-8 w-[400px] bg-white dark:bg-slate-900 rounded-lg shadow-xl z-50 overflow-hidden border border-gray-200 dark:border-gray-700"
+            className="fixed bottom-24 left-4 right-4 md:right-auto md:left-8 md:w-[400px] w-auto bg-white dark:bg-slate-900 rounded-lg shadow-xl z-50 overflow-hidden border border-gray-200 dark:border-gray-700"
           >
             {/* Header */}
             <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700">
