@@ -583,7 +583,7 @@ export default function Home() {
     </div>
       </section>
 
-      {/* Back to Top Button */}
+      {/* Back To Top Button */}
       <motion.button
         initial={{ opacity: 0 }}
         animate={{ opacity: showBackToTop ? 1 : 0 }}
