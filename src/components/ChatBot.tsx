@@ -125,7 +125,7 @@ export default function ChatBot() {
             </div>
 
             {/* Input */}
-            <form onSubmit={handleSendMessage} className="border-t border-gray-200 dark:border-gray-700 p-4">
+            <form onSubmit={handleSendMessage} className="border-t border-gray-200 dark:border-gray-700 p-4 md:p-4 p-2">
               <div className="flex gap-2">
                 <input
                   type="text"
@@ -133,12 +133,12 @@ export default function ChatBot() {
                   onChange={(e) => setInputText(e.target.value)}
                   placeholder="Type a message..."
                   disabled={isLoading}
-                  className="flex-1 rounded-lg border border-gray-300 dark:border-gray-600 p-2 focus:outline-none focus:border-primary-600 dark:bg-slate-800 dark:text-white disabled:opacity-50"
+                  className="flex-1 rounded-lg border border-gray-300 dark:border-gray-600 p-2 text-sm md:text-base focus:outline-none focus:border-primary-600 dark:bg-slate-800 dark:text-white disabled:opacity-50"
                 />
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50"
+                  className="bg-primary-600 text-white px-3 md:px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 text-sm md:text-base whitespace-nowrap"
                 >
                   Send
                 </button>
