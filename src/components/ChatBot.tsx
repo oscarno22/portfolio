@@ -1,10 +1,15 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 interface Message {
   text: string;
   isUser: boolean;
 }
+
+const CHAT_API_URL = process.env.NEXT_PUBLIC_CHAT_API_URL || 'https://8s02s77xg6.execute-api.us-east-1.amazonaws.com/prod/chat';
 
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +28,7 @@ export default function ChatBot() {
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/chat', {
+      const response = await fetch(CHAT_API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
