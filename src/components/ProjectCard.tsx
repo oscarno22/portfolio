@@ -21,7 +21,7 @@ export default function ProjectCard({
   imageUrl,
   company,
   liveUrl,
-  githubUrl
+  githubUrl,
 }: ProjectCardProps) {
   return (
     <motion.div
@@ -44,13 +44,9 @@ export default function ProjectCard({
           <p className="text-sm font-medium text-primary-600 dark:text-primary-400 mb-1">
             {company}
           </p>
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-            {title}
-          </h3>
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{title}</h3>
         </div>
-        <p className="text-gray-700 dark:text-gray-300 mb-4">
-          {description}
-        </p>
+        <p className="text-gray-700 dark:text-gray-300 mb-4">{description}</p>
         <div className="flex flex-wrap gap-2 mb-4">
           {technologies.map((tech) => (
             <span
@@ -92,4 +88,4 @@ export default function ProjectCard({
       </div>
     </motion.div>
   )
-} 
+}

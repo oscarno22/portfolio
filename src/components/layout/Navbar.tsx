@@ -30,10 +30,7 @@ export default function Navbar() {
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link 
-            href="/"
-            className="text-2xl font-bold text-primary-600 dark:text-primary-400"
-          >
+          <Link href="/" className="text-2xl font-bold text-primary-600 dark:text-primary-400">
             Portfolio
           </Link>
 
@@ -54,14 +51,15 @@ export default function Navbar() {
             className="p-2 rounded-lg bg-gray-100 dark:bg-slate-800"
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
           >
-            {mounted && (theme === 'dark' ? (
-              <SunIcon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
-            ) : (
-              <MoonIcon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
-            ))}
+            {mounted &&
+              (theme === 'dark' ? (
+                <SunIcon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
+              ) : (
+                <MoonIcon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
+              ))}
           </button>
         </div>
       </nav>
     </motion.header>
   )
-} 
+}

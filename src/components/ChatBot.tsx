@@ -1,31 +1,33 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import dotenv from 'dotenv';
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import dotenv from 'dotenv'
 
-dotenv.config();
+dotenv.config()
 
 interface Message {
-  text: string;
-  isUser: boolean;
+  text: string
+  isUser: boolean
 }
 
-const CHAT_API_URL = process.env.NEXT_PUBLIC_CHAT_API_URL || 'https://8s02s77xg6.execute-api.us-east-1.amazonaws.com/prod/chat';
+const CHAT_API_URL =
+  process.env.NEXT_PUBLIC_CHAT_API_URL ||
+  'https://8s02s77xg6.execute-api.us-east-1.amazonaws.com/prod/chat'
 
 export default function ChatBot() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [inputText, setInputText] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
+  const [messages, setMessages] = useState<Message[]>([])
+  const [inputText, setInputText] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSendMessage = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!inputText.trim() || isLoading) return;
+    e.preventDefault()
+    if (!inputText.trim() || isLoading) return
 
     // Add user message
-    const newMessages = [...messages, { text: inputText, isUser: true }];
-    setMessages(newMessages);
-    setInputText('');
-    setIsLoading(true);
+    const newMessages = [...messages, { text: inputText, isUser: true }]
+    setMessages(newMessages)
+    setInputText('')
+    setIsLoading(true)
 
     try {
       const response = await fetch(CHAT_API_URL, {
@@ -34,24 +36,24 @@ export default function ChatBot() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ message: inputText }),
-      });
+      })
 
       if (!response.ok) {
-        throw new Error('Failed to get response');
+        throw new Error('Failed to get response')
       }
 
-      const data = await response.json();
-      setMessages([...newMessages, { text: data.response, isUser: false }]);
+      const data = await response.json()
+      setMessages([...newMessages, { text: data.response, isUser: false }])
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error:', error)
       setMessages([
         ...newMessages,
         { text: 'Sorry, I encountered an error. Please try again.', isUser: false },
-      ]);
+      ])
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
 
   return (
     <>
@@ -89,7 +91,12 @@ export default function ChatBot() {
                 className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
               >
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               </button>
             </div>
@@ -130,7 +137,10 @@ export default function ChatBot() {
             </div>
 
             {/* Input */}
-            <form onSubmit={handleSendMessage} className="border-t border-gray-200 dark:border-gray-700 p-4 md:p-4 p-2">
+            <form
+              onSubmit={handleSendMessage}
+              className="border-t border-gray-200 dark:border-gray-700 p-4 md:p-4 p-2"
+            >
               <div className="flex gap-2">
                 <input
                   type="text"
@@ -153,5 +163,5 @@ export default function ChatBot() {
         )}
       </AnimatePresence>
     </>
-  );
-} 
+  )
+}

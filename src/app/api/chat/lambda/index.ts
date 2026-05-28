@@ -1,12 +1,12 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import OpenAI from 'openai';
-import dotenv from 'dotenv';
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
+import OpenAI from 'openai'
+import dotenv from 'dotenv'
 
-dotenv.config();
+dotenv.config()
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
-});
+})
 
 const SYSTEM_PROMPT = `You are an AI assistant on Oscar Nolen's portfolio website. Your primary role is to help visitors learn about Oscar's background, achievements, and capabilities. Here's what you should know:
 
@@ -39,13 +39,13 @@ Keep your responses:
 3. Highlight specific achievements and technical capabilities when appropriate
 4. Emphasize the combination of theoretical knowledge (mathematics, computer science) and practical experience (AWS, AI development)
 
-If asked about contact information, direct them to: oscarnolen@gmail.com or his LinkedIn profile.`;
+If asked about contact information, direct them to: oscarnolen@gmail.com or his LinkedIn profile.`
 
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     // Parse the incoming message from the request body
-    const body = JSON.parse(event.body || '{}');
-    const { message } = body;
+    const body = JSON.parse(event.body || '{}')
+    const { message } = body
 
     if (!message) {
       return {
@@ -54,28 +54,28 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*', // Configure this appropriately for production
           'Access-Control-Allow-Methods': 'POST, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type'
+          'Access-Control-Allow-Headers': 'Content-Type',
         },
-        body: JSON.stringify({ error: 'Message is required' })
-      };
+        body: JSON.stringify({ error: 'Message is required' }),
+      }
     }
 
     // Call OpenAI API
     const completion = await openai.chat.completions.create({
       messages: [
         {
-          role: "system",
-          content: SYSTEM_PROMPT
+          role: 'system',
+          content: SYSTEM_PROMPT,
         },
         {
-          role: "user",
-          content: message
-        }
+          role: 'user',
+          content: message,
+        },
       ],
-      model: "gpt-3.5-turbo",
+      model: 'gpt-3.5-turbo',
       temperature: 0.7,
       max_tokens: 300,
-    });
+    })
 
     // Return the response
     return {
@@ -84,25 +84,25 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*', // Configure this appropriately for production
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type'
+        'Access-Control-Allow-Headers': 'Content-Type',
       },
       body: JSON.stringify({
-        response: completion.choices[0].message.content
-      })
-    };
+        response: completion.choices[0].message.content,
+      }),
+    }
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Error:', error)
     return {
       statusCode: 500,
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*', // Configure this appropriately for production
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type'
+        'Access-Control-Allow-Headers': 'Content-Type',
       },
       body: JSON.stringify({
-        error: 'Failed to process your request'
-      })
-    };
+        error: 'Failed to process your request',
+      }),
+    }
   }
-}; 
+}
