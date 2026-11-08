@@ -5,41 +5,45 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
+nvm use          # Node 22 (see .nvmrc)
 npm run dev      # Start local dev server at http://localhost:3000
 npm run build    # Production build
-npm run lint     # Run ESLint
+npm run lint     # Run ESLint (flat config in eslint.config.mjs)
 npm run format   # Format source files with Prettier
 ```
 
-There are no tests in this project.
+There are no tests in this project. Lint and build must both pass before committing.
 
 ## Environment Variables
 
-The following env vars are required at runtime (`.env.local` for local dev):
+Copy `.env.local.example` to `.env.local`. Nothing here is a secret.
 
 | Variable | Purpose |
 |---|---|
-| `NEXT_PUBLIC_CHAT_API_URL` | AWS API Gateway URL for the chat endpoint (used client-side) |
-| `AWS_REGION` | Region for Lambda invocation fallback path |
-| `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` | Credentials for the Next.js API route fallback |
-| `CHAT_LAMBDA_NAME` | Lambda function name for the fallback Next.js route |
+| `RESUME_DOC_ID` | Google Doc ID of the current resume. `/resume.pdf` fetches its PDF export. Unset → the committed fallback PDF is served. |
+| `NEXT_PUBLIC_SITE_URL` | Public origin used for `metadataBase`, canonical URL and Open Graph tags. Defaults to the Vercel URL. |
 
 ## Architecture
 
-This is a single-page Next.js 15 (App Router) portfolio site with a dark-mode toggle and an AI chatbot.
+Single-page Next.js 16 (App Router, React 19) portfolio for Oscar Nolen, deployed on Vercel. Tailwind 3 with a custom sky-blue `primary` scale, class-based dark mode via `next-themes`, framer-motion for scroll-in animation.
 
-**Single page layout** — all sections (Hero, About, Experience, Skills, Projects, Contact) live in `src/app/page.tsx` as a vertically scrolled SPA. The page is a `'use client'` component using Framer Motion for scroll-triggered animations and a spring-based scroll progress bar.
+**Content layer: `src/content/`.** All copy lives in typed modules, none in components.
+- `types.ts` — `Profile`, `Experience`, `Project`, `SkillGroup`, `Education`, `Research`.
+- `profile.ts` — name, headline, eyebrow, contact links, About paragraphs, the facts sidebar, and per-section titles/ledes.
+- `experience.ts` — roles; the Ally entry has workstream groups (`items[].heading`), one with `status: 'in-development'`.
+- `projects.ts` — `featured: true` items render as case studies (Problem/Approach/Result); the rest are compact repo cards. `kind: 'work'` projects have no `repoUrl` by design.
+- `skills.ts`, `education.ts` — skill groups (resume categories + Rust) and the VAE research card.
 
-**Routing & layout** — `src/app/layout.tsx` wraps everything in `ThemeProvider` (next-themes, class-based dark mode) and the `Navbar`. The Navbar is desktop-only nav links plus a light/dark toggle; it has no mobile hamburger menu.
+The source of truth for every claim is the resume (Google Doc "oscar-nolen-resume (2026)") or a repo README. Don't add metrics, internal system names or outcomes that aren't in those. Avoid filler words (seamless, powerful, robust, leverage, cutting-edge, passionate about).
 
-**Chatbot — two-tier architecture**:
-1. `src/components/ChatBot.tsx` calls the AWS API Gateway URL (`NEXT_PUBLIC_CHAT_API_URL`) directly from the browser. This is the live production path.
-2. `src/app/api/chat/route.ts` is a Next.js API route that proxies to the same Lambda via the AWS SDK. This is a fallback/alternative path, not used by the current client code.
-3. `src/app/api/chat/lambda/lambda_function.py` — the deployed Lambda handler. Uses the OpenAI Agents SDK (`agents` package) with a `Runner` to run an `Agent` configured with a detailed system prompt about Oscar's background.
-4. `src/app/api/chat/lambda/index.ts` — an older TypeScript Lambda handler (direct OpenAI SDK, `gpt-3.5-turbo`). Superseded by the Python handler.
+**Page composition.** `src/app/page.tsx` is a server component that stacks `src/components/sections/{Hero,About,Experience,FeaturedWork,MoreProjects,Skills,Research,Contact}` inside `MotionRoot` (LazyMotion + `MotionConfig reducedMotion="user"`). Sections are client components because they use `whileInView`. `SectionHeading` renders the numbered mono eyebrow; section ids are `about`, `experience`, `work`, `more-work`, `skills`, `research`, `contact` and the Navbar's items must match them.
 
-**Styling** — Tailwind CSS with a custom `primary` color scale (sky blue, `primary-600 = #0284c7`). Dark mode is `darkMode: 'class'`. No CSS Modules or styled-components.
+**Shared pieces.** `src/components/{Badge,StackChips,CaseStudyCard,RepoCard,ScrollChrome}.tsx`; `src/components/layout/{Navbar,Footer}.tsx` (Navbar has the mobile menu and IntersectionObserver active-section state); motion variants in `src/lib/motion.ts`; site URL in `src/lib/site.ts`.
 
-**Static content** — all experience, project, and skill data is hardcoded as arrays directly in `src/app/page.tsx`. There is no CMS or data layer.
+**Resume route.** `src/app/resume.pdf/route.ts` (Node runtime) fetches `https://docs.google.com/document/d/$RESUME_DOC_ID/export?format=pdf` with a one-hour revalidate and streams it inline. Any failure, or a private Doc, redirects to `public/docs/resume-oscarnolen-<date>.pdf`. When replacing the fallback, use a new dated filename and update `FALLBACK_PATH`.
 
-**Node version** — pinned in `.nvmrc`.
+**Metadata.** `src/app/layout.tsx` sets title, description (= hero headline), canonical, Open Graph and Twitter tags from `src/content/profile.ts`; `opengraph-image.tsx` / `twitter-image.tsx` generate the share image with `next/og`. Fonts are Inter (`--font-sans`) and JetBrains Mono (`--font-mono`) via `next/font`.
+
+**Styling conventions.** Mono font only for eyebrows, dates, chips and badges. Alternating section backgrounds are `bg-gray-50 dark:bg-slate-800/50`. Cards are `rounded-2xl border ... bg-white dark:bg-slate-900`. Global focus ring and `scroll-padding-top` live in `globals.css`.
+
+There is no chatbot or API route anymore; the previous Lambda-backed chat was removed in 11/2026.

@@ -35,6 +35,7 @@ export const experience: Experience[] = [
       },
       {
         heading: 'Across projects',
+        span: 'full',
         bullets: [
           'I own production releases end to end: Terraform, GitLab CI/CD, dependency and vulnerability fixes, load testing, APIs (Apigee and Kong), UAT, Dynatrace and CloudWatch monitoring, and the GenAI model approval process and documentation.',
           'I work with other teams and business lines to keep tabs on products and translate business needs into technical designs.',

@@ -5,6 +5,8 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Keep anchored sections clear of the fixed navbar. */
+    scroll-padding-top: 5rem;
   }
 
   body {
@@ -19,6 +21,23 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  ::selection {
+    @apply bg-primary-200 text-primary-950;
+  }
+
+  .dark ::selection {
+    @apply bg-primary-800 text-white;
+  }
+
+  /* One consistent focus ring for anything keyboard-focusable. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary-500 ring-offset-2 ring-offset-white;
+  }
+
+  .dark :focus-visible {
+    @apply ring-offset-slate-900;
+  }
 }
 
 @layer components {
@@ -29,8 +48,18 @@
   .transform-gpu {
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
-    perspective: 1000px;
-    transform-style: preserve-3d;
+  }
+
+  /* Hero backdrop: faint dot grid, masked toward the edges. */
+  .bg-dot-grid {
+    background-image: radial-gradient(circle, rgb(2 132 199 / 0.22) 1px, transparent 1.5px);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 80%);
+  }
+
+  .dark .bg-dot-grid {
+    background-image: radial-gradient(circle, rgb(56 189 248 / 0.16) 1px, transparent 1.5px);
   }
 }
 

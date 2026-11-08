@@ -9,16 +9,16 @@ import SectionHeading from './SectionHeading'
 
 export default function Research() {
   return (
-    <section id="research" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-100 dark:bg-slate-800">
-      <div className="max-w-7xl mx-auto">
-        <SectionHeading title={profile.sections.research.title} />
+    <section id="research" className="bg-gray-50 px-4 py-24 dark:bg-slate-800/50 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <SectionHeading index={6} title={profile.sections.research.title} />
 
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
           variants={containerVariants}
-          className="mx-auto grid max-w-5xl grid-cols-1 gap-6 lg:grid-cols-[1.6fr_1fr]"
+          className="grid max-w-5xl grid-cols-1 gap-6 lg:grid-cols-[1.6fr_1fr]"
         >
           <motion.article
             variants={itemVariants}

@@ -14,6 +14,13 @@ export const profile: Profile = {
     "The problems I like most are the ones where correctness has to hold across systems: a claim that has to stay current against Salesforce, an order book that has to match the exchange, a release that has to clear UAT and monitoring before it reaches customers. I'm happiest when something I built is running in production and I can watch it work.",
     'I studied Computer Science and Mathematics at Duke and finished an MS in Computer Science at UNC Charlotte in December 2025, with research on memorization in variational autoencoders. I worked service jobs through school, and I care about enriching STEM in underrepresented communities.',
   ],
+  facts: [
+    { label: 'Role', value: 'Software Engineer – Agentic AI, Ally Financial' },
+    { label: 'Since', value: 'January 2025' },
+    { label: 'Based in', value: 'Charlotte, NC' },
+    { label: 'Education', value: 'Duke BS CS + Math · UNC Charlotte MS CS' },
+    { label: 'Focus', value: 'Data integrity, event and batch processing, agents in production' },
+  ],
   sections: {
     about: { title: 'About' },
     experience: {

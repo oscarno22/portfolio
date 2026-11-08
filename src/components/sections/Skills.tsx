@@ -9,8 +9,9 @@ import {
   CpuChipIcon,
   BeakerIcon,
 } from '@heroicons/react/24/outline'
+import StackChips from '@/components/StackChips'
 import { profile, skills } from '@/content'
-import { containerVariants, skillCardVariants, viewportOnce } from '@/lib/motion'
+import { containerVariants, itemVariants, viewportOnce } from '@/lib/motion'
 import SectionHeading from './SectionHeading'
 
 const iconFor: Record<string, typeof CodeBracketIcon> = {
@@ -24,39 +25,32 @@ const iconFor: Record<string, typeof CodeBracketIcon> = {
 
 export default function Skills() {
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <SectionHeading title={profile.sections.skills.title} lede={profile.sections.skills.lede} />
+    <section id="skills" className="px-4 py-24 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <SectionHeading index={5} title={profile.sections.skills.title} />
 
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
           variants={containerVariants}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 transform-gpu animate-on-scroll"
+          className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3"
         >
           {skills.map((group) => {
             const Icon = iconFor[group.category] ?? CodeBracketIcon
             return (
               <motion.div
                 key={group.category}
-                variants={skillCardVariants}
-                whileHover="hover"
-                className="bg-white/95 dark:bg-slate-900 rounded-xl p-6 shadow-lg transition-all duration-300 transform-gpu backdrop-blur-sm border border-gray-100 dark:border-gray-800"
+                variants={itemVariants}
+                className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900"
               >
-                <div className="flex items-center justify-center mb-4">
-                  <Icon className="w-6 h-6 text-primary-600 dark:text-primary-400" />
+                <div className="mb-4 flex items-center gap-3">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-50 text-primary-700 dark:bg-primary-950/60 dark:text-primary-300">
+                    <Icon aria-hidden="true" className="h-5 w-5" />
+                  </span>
+                  <h3 className="font-semibold text-gray-900 dark:text-white">{group.category}</h3>
                 </div>
-                <h3 className="text-xl font-semibold text-black dark:text-white mb-4 text-center">
-                  {group.category}
-                </h3>
-                <ul className="space-y-2">
-                  {group.items.map((item) => (
-                    <li key={item} className="text-gray-700 dark:text-gray-300 font-medium">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+                <StackChips items={group.items} label={group.category} size="md" />
               </motion.div>
             )
           })}

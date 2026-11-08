@@ -8,9 +8,13 @@ import SectionHeading from './SectionHeading'
 
 export default function MoreProjects() {
   return (
-    <section id="more-work" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <SectionHeading title={profile.sections.more.title} lede={profile.sections.more.lede} />
+    <section id="more-work" className="px-4 py-24 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <SectionHeading
+          index={4}
+          title={profile.sections.more.title}
+          lede={profile.sections.more.lede}
+        />
 
         <motion.div
           initial="hidden"

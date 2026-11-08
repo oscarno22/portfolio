@@ -4,6 +4,8 @@ export type Status = 'in-development'
 export interface ExperienceItemGroup {
   heading?: string
   status?: Status
+  /** Span the full width of the workstream grid. */
+  span?: 'full'
   bullets: string[]
 }
 
@@ -82,5 +84,7 @@ export interface Profile {
   github: string
   resumeUrl: string
   about: string[]
+  /** Short label/value pairs shown beside the About copy. */
+  facts: { label: string; value: string }[]
   sections: Record<SectionKey, SectionCopy>
 }
