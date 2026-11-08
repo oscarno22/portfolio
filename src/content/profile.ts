@@ -8,7 +8,7 @@ export const profile: Profile = {
   email: 'oscarnolen@gmail.com',
   linkedin: 'https://www.linkedin.com/in/oscar-nolen-846269153',
   github: 'https://github.com/oscarno22',
-  resumeUrl: '/docs/resume-oscarnolen.pdf',
+  resumeUrl: '/resume.pdf',
   about: [
     "I'm a software engineer at Ally Financial, where I've worked in agentic AI since January 2025. I'm the lead engineer and production owner of the Decedent servicing platform, I built the MCP Gateway for our business-facing agent platform, and I lead an event-driven fraud recommendation engine that is still in development.",
     "The problems I like most are the ones where correctness has to hold across systems: a claim that has to stay current against Salesforce, an order book that has to match the exchange, a release that has to clear UAT and monitoring before it reaches customers. I'm happiest when something I built is running in production and I can watch it work.",
