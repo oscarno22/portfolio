@@ -23,10 +23,10 @@ export default function Hero() {
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              href="#projects"
+              href="#work"
               className="px-8 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors transform-gpu"
             >
-              View Projects
+              See the work
             </motion.a>
             <motion.a
               whileHover={{ scale: 1.05 }}
@@ -36,7 +36,7 @@ export default function Hero() {
               rel="noopener noreferrer"
               className="px-8 py-3 bg-white text-primary-600 border-2 border-primary-600 rounded-lg hover:bg-primary-50 transition-colors transform-gpu"
             >
-              Download Resume
+              Resume
             </motion.a>
             <motion.a
               whileHover={{ scale: 1.05 }}
@@ -44,7 +44,7 @@ export default function Hero() {
               href="#contact"
               className="px-8 py-3 border-2 border-primary-600 text-primary-600 dark:text-primary-400 rounded-lg hover:bg-primary-50 dark:hover:bg-slate-800 transition-colors transform-gpu"
             >
-              Contact Me
+              Contact
             </motion.a>
           </div>
         </motion.div>

@@ -8,12 +8,9 @@ import SectionHeading from './SectionHeading'
 
 export default function FeaturedWork() {
   return (
-    <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-100 dark:bg-slate-800">
+    <section id="work" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-100 dark:bg-slate-800">
       <div className="max-w-7xl mx-auto">
-        <SectionHeading
-          title={profile.sections.projects.title}
-          lede={profile.sections.projects.lede}
-        />
+        <SectionHeading title={profile.sections.work.title} lede={profile.sections.work.lede} />
 
         <motion.div
           initial="hidden"

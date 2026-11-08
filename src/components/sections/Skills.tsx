@@ -3,19 +3,23 @@
 import { motion } from 'framer-motion'
 import {
   CodeBracketIcon,
-  CommandLineIcon,
+  CircleStackIcon,
+  CloudIcon,
   WindowIcon,
   CpuChipIcon,
+  BeakerIcon,
 } from '@heroicons/react/24/outline'
 import { profile, skills } from '@/content'
 import { containerVariants, skillCardVariants, viewportOnce } from '@/lib/motion'
 import SectionHeading from './SectionHeading'
 
 const iconFor: Record<string, typeof CodeBracketIcon> = {
-  'Languages & Core': CodeBracketIcon,
-  'Cloud & DevOps': CommandLineIcon,
-  'AI & Data': CpuChipIcon,
-  'Web & Frameworks': WindowIcon,
+  Languages: CodeBracketIcon,
+  'Backend and data': CircleStackIcon,
+  'Cloud and DevOps': CloudIcon,
+  Frontend: WindowIcon,
+  'Agentic AI': CpuChipIcon,
+  'Machine learning': BeakerIcon,
 }
 
 export default function Skills() {

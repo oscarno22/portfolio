@@ -8,7 +8,7 @@ import { SunIcon, MoonIcon } from '@heroicons/react/24/outline'
 const navItems = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '#about' },
-  { name: 'Projects', href: '#projects' },
+  { name: 'Work', href: '#work' },
   { name: 'Experience', href: '#experience' },
   { name: 'Contact', href: '#contact' },
 ]

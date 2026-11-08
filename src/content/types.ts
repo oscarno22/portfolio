@@ -1,7 +1,9 @@
 export type ProjectKind = 'work' | 'personal' | 'research'
+export type Status = 'in-development'
 
 export interface ExperienceItemGroup {
   heading?: string
+  status?: Status
   bullets: string[]
 }
 
@@ -21,13 +23,13 @@ export interface Project {
   kind: ProjectKind
   /** Short description shown on every card. */
   blurb: string
-  /** Case-study fields (work projects and featured personal projects). */
+  /** Case-study fields (featured work and personal projects). */
   problem?: string
   approach?: string
   result?: string
   stack: string[]
   repoUrl?: string
-  status?: 'in-development'
+  status?: Status
   featured: boolean
   image?: string
   /** Organisation the work was done for, shown as the card eyebrow. */
@@ -39,19 +41,46 @@ export interface SkillGroup {
   items: string[]
 }
 
+export interface Education {
+  school: string
+  degree: string
+  detail?: string
+  start: string
+  end: string
+}
+
+export interface Research {
+  title: string
+  context: string
+  body: string[]
+  stack: string[]
+}
+
 export interface SectionCopy {
   title: string
   lede?: string
 }
 
+export type SectionKey =
+  | 'about'
+  | 'experience'
+  | 'work'
+  | 'more'
+  | 'skills'
+  | 'research'
+  | 'contact'
+
 export interface Profile {
   name: string
+  /** One-line positioning shown under the name. */
   headline: string
+  /** Small label above the name. */
+  eyebrow: string
   location: string
   email: string
   linkedin: string
   github: string
   resumeUrl: string
   about: string[]
-  sections: Record<'about' | 'experience' | 'skills' | 'projects' | 'contact', SectionCopy>
+  sections: Record<SectionKey, SectionCopy>
 }
