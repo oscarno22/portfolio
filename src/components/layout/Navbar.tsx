@@ -1,6 +1,5 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import { useTheme } from 'next-themes'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
@@ -15,12 +14,7 @@ const navItems = [
 ]
 
 export default function Navbar() {
-  const [mounted, setMounted] = useState(false)
-  const { theme, setTheme } = useTheme()
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const { resolvedTheme, setTheme } = useTheme()
 
   return (
     <motion.header
@@ -49,14 +43,10 @@ export default function Navbar() {
           <button
             aria-label="Toggle Dark Mode"
             className="p-2 rounded-lg bg-gray-100 dark:bg-slate-800"
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
           >
-            {mounted &&
-              (theme === 'dark' ? (
-                <SunIcon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
-              ) : (
-                <MoonIcon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
-              ))}
+            <SunIcon className="hidden dark:block h-5 w-5 text-gray-700 dark:text-gray-300" />
+            <MoonIcon className="block dark:hidden h-5 w-5 text-gray-700 dark:text-gray-300" />
           </button>
         </div>
       </nav>

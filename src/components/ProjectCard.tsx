@@ -3,52 +3,43 @@
 import { motion } from 'framer-motion'
 import { ArrowTopRightOnSquareIcon, CodeBracketIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
+import type { Project } from '@/content/types'
 
 interface ProjectCardProps {
-  title: string
-  description: string
-  technologies: string[]
-  imageUrl: string
-  company: string
+  project: Project
   liveUrl?: string
-  githubUrl?: string
 }
 
-export default function ProjectCard({
-  title,
-  description,
-  technologies,
-  imageUrl,
-  company,
-  liveUrl,
-  githubUrl,
-}: ProjectCardProps) {
+export default function ProjectCard({ project, liveUrl }: ProjectCardProps) {
+  const { title, blurb, stack, image, org, repoUrl } = project
   return (
     <motion.div
       whileHover={{ y: -5 }}
       className="bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow transform-gpu"
     >
-      <div className="relative w-full pt-[56.25%]">
-        <Image
-          src={imageUrl}
-          alt={title}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover absolute top-0 left-0 transform-gpu"
-          loading="lazy"
-          quality={85}
-        />
-      </div>
+      {image && (
+        <div className="relative w-full pt-[56.25%]">
+          <Image
+            src={image}
+            alt={title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover absolute top-0 left-0 transform-gpu"
+            loading="lazy"
+            quality={85}
+          />
+        </div>
+      )}
       <div className="p-6">
         <div className="mb-2">
-          <p className="text-sm font-medium text-primary-600 dark:text-primary-400 mb-1">
-            {company}
-          </p>
+          {org && (
+            <p className="text-sm font-medium text-primary-600 dark:text-primary-400 mb-1">{org}</p>
+          )}
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{title}</h3>
         </div>
-        <p className="text-gray-700 dark:text-gray-300 mb-4">{description}</p>
+        <p className="text-gray-700 dark:text-gray-300 mb-4">{blurb}</p>
         <div className="flex flex-wrap gap-2 mb-4">
-          {technologies.map((tech) => (
+          {stack.map((tech) => (
             <span
               key={tech}
               className="px-3 py-1 bg-primary-50 dark:bg-slate-800 text-primary-600 dark:text-primary-400 rounded-full text-sm font-medium"
@@ -71,11 +62,11 @@ export default function ProjectCard({
               Live Demo
             </motion.a>
           )}
-          {githubUrl && (
+          {repoUrl && (
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              href={githubUrl}
+              href={repoUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors transform-gpu"
