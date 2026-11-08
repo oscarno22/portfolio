@@ -1,9 +1,9 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import ProjectCard from '@/components/ProjectCard'
+import CaseStudyCard from '@/components/CaseStudyCard'
 import { featuredProjects, profile } from '@/content'
-import { containerVariants, projectCardVariants, viewportOnce } from '@/lib/motion'
+import { containerVariants, itemVariants, viewportOnce } from '@/lib/motion'
 import SectionHeading from './SectionHeading'
 
 export default function FeaturedWork() {
@@ -17,11 +17,11 @@ export default function FeaturedWork() {
           whileInView="visible"
           viewport={viewportOnce}
           variants={containerVariants}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transform-gpu animate-on-scroll"
+          className="grid grid-cols-1 gap-6 md:grid-cols-2"
         >
           {featuredProjects.map((project) => (
-            <motion.div key={project.slug} variants={projectCardVariants} whileHover="hover">
-              <ProjectCard project={project} />
+            <motion.div key={project.slug} variants={itemVariants} className="h-full">
+              <CaseStudyCard project={project} />
             </motion.div>
           ))}
         </motion.div>
