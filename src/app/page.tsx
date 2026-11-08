@@ -1,6 +1,5 @@
 import MotionRoot from '@/components/MotionRoot'
 import ScrollChrome from '@/components/ScrollChrome'
-import ChatBot from '@/components/ChatBot'
 import Hero from '@/components/sections/Hero'
 import About from '@/components/sections/About'
 import Experience from '@/components/sections/Experience'
@@ -22,7 +21,6 @@ export default function Home() {
       <Skills />
       <Research />
       <Contact />
-      <ChatBot />
     </MotionRoot>
   )
 }
